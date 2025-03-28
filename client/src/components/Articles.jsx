@@ -107,19 +107,23 @@ const Articles = ({ location }) => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
-  // Function to fetch news (useCallback to avoid unnecessary re-creations)
+  // Fetch News Function
   const fetchNews = useCallback(
     async (currentPage, append = true) => {
       try {
+        console.log(`Fetching news for page ${currentPage}, location: ${location}`);
         const response = await getNews(currentPage);
-        const articles = response?.data?.articles || [];
+
+        console.log("Raw API Response:", response); // Debugging
+
+        const articles = response?.articles || []; // Adjusted access
 
         if (!Array.isArray(articles)) {
           console.error("Invalid response format:", response);
           return;
         }
 
-        console.log(`Fetched ${articles.length} articles for ${location}`);
+        console.log(`Fetched ${articles.length} articles`);
 
         setNews((prevNews) => {
           const combinedNews = append ? [...prevNews, ...articles] : articles;
@@ -135,7 +139,7 @@ const Articles = ({ location }) => {
     [location]
   );
 
-  // Fetch news when the page number changes
+  // Fetch news when page changes
   useEffect(() => {
     fetchNews(page);
   }, [fetchNews, page]);
@@ -143,10 +147,16 @@ const Articles = ({ location }) => {
   // Fetch fresh news when location changes
   useEffect(() => {
     if (location) {
-      setNews([]); // Clear old articles
+      setNews([]); 
       setPage(1);
       setHasMore(true);
-      fetchNews(1, false);
+
+      let isActive = true;
+      fetchNews(1, false).then(() => {
+        if (!isActive) return;
+      });
+
+      return () => { isActive = false; };
     }
   }, [location, fetchNews]);
 
@@ -174,4 +184,5 @@ const Articles = ({ location }) => {
 };
 
 export default Articles;
+
 

@@ -10,7 +10,7 @@ const Container = styled(Box)`
     height: 100px;
 `;
 
-const InfoHeader = ({ location = "INDIAN" }) => {  // Default to "Indian Times"
+const InfoHeader = ({ location = "INDIA" }) => {  // Default to "Indian Times"
     return (
         <Container>
             <Typography variant="h4" component="h1">

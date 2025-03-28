@@ -59,11 +59,11 @@ const MapComponent = ({ setLocation }) => {
   return (
     <MapContainer center={position} zoom={13} style={{ height: '750px', width: '100%' }}>
       <TileLayer
-         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+         //url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         //url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
        //url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
        //url="https://stamen-tiles.a.ssl.fastly.net/toner/{z}/{x}/{y}.png"
-       //url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
+       url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}"
        
       />
       {isLocationFound && (

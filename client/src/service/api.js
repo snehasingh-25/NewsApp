@@ -16,10 +16,14 @@ const URL = 'http://localhost:8000';
 
 export const getNews = async (page = 1, size = 5) => {
     try {
+        console.log(`Fetching news from ${URL}/news?page=${page}&size=${size}`);
         const response = await axios.get(`${URL}/news?page=${page}&size=${size}`);
-        return response.data; // Return only the response data
+        console.log('API Response:', response.data); // Log full response
+        return response.data; 
     } catch (error) {
         console.error('Error fetching news:', error.response?.data || error.message);
-        return null; // Return null in case of an error
+        return null;
     }
 };
+
+
